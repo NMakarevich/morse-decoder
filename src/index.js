@@ -40,20 +40,25 @@ const MORSE_TABLE = {
 function decode(expr) {
     return expr.split('**********').map(item => {
         let letters = [];
+        
         for (let i = 0; i < item.length / 10; i++) {
           let binary = item.slice(i * 10, i * 10 + 10);
           binary = binary.slice(binary.indexOf('1'));
-      
+
+          let str = '';
           if (binary.length > 2) {
             let morse = [];
+            
             for (let i = 0; i < binary.length / 2; i++) {
-                morse.push(binary.slice(i * 2, i * 2 + 2) == '11' ? '-' : '.');
+              morse.push(binary.slice(i * 2, i * 2 + 2) == '11' ? '-' : '.');
             }
-            morse = morse.join('');
+            
+            str = morse.join('');
           } else {
-            morse = binary == '11' ? '-' : '.';
+            str = binary == '11' ? '-' : '.';
           }
-          letters.push(MORSE_TABLE[morse]);
+
+          letters.push(MORSE_TABLE[str]);
         }
         return letters.join(''); 
       }).join(' ');
